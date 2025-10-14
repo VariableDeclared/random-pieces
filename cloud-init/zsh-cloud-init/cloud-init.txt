@@ -1,0 +1,15 @@
+#cloud-config
+package_upgrade: true
+packages:
+  - zsh
+  - git
+users:
+  - name: ubuntu
+    sudo: "ALL=(ALL) NOPASSWD:ALL"
+    groups: users, admin
+    shell: /usr/bin/zsh
+    ssh_import_id:
+     - lp:pjds
+    lock_passwd: true
+runcmd:
+- sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
