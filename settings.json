@@ -1,0 +1,33 @@
+{
+    "go.toolsManagement.autoUpdate": true,
+    "files.autoSave": "afterDelay",
+    "editor.renderWhitespace": "none",
+    "redhat.telemetry.enabled": true,
+    "yaml.schemas": {
+        "file:///home/pjds/.vscode/extensions/docsmsft.docs-yaml-1.0.5/dist/toc.schema.json": "/toc\\.yml/i"
+    },
+    "[python]": {
+        "editor.formatOnType": true,
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "security.workspace.trust.untrustedFiles": "open",
+    "[dockercompose]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.autoIndent": "advanced",
+        "editor.quickSuggestions": {
+            "other": true,
+            "comments": false,
+            "strings": true
+        },
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[github-actions-workflow]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "gitlens.views.remotes.pullRequests.showForBranches": false,
+    "gitlens.remotes": [
+        
+        { "domain": "github.com", "type": "GitHub" }
+    ]
+}
