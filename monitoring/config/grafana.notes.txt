@@ -1,0 +1,1 @@
+Upstream default config was enough for the lab.
