@@ -17,7 +17,7 @@ otelcol.exporter.otlphttp "experiments_2404_loki" {
 }
 prometheus.remote_write "prometheus" {
   endpoint {
-    url = "http://mimir:9009/api/v1/push"
+    url = "http://192.168.2.231:9009/api/v1/push"
   }
 }
 
