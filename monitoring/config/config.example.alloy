@@ -15,15 +15,16 @@ otelcol.exporter.otlphttp "experiments_2404_loki" {
     }
   }
 }
-prometheus.remote_write "prometheus" {
-  endpoint {
-    url = "http://192.168.2.231:9009/api/v1/push"
+
+otelcol.exporter.otlphttp "experiments_2404_prom" {
+  client {
+    endpoint = "http://192.168.2.231:9090/api/v1/otlp"
+    tls {
+      insecure = true
+    }
   }
 }
 
-otelcol.exporter.prometheus "experiments_2404_prom" {
-    forward_to = [prometheus.remote_write.prometheus.receiver]
-}
 otelcol.receiver.otlp "llm_reciever" {
   grpc {
     endpoint = "0.0.0.0:4317"
@@ -34,9 +35,8 @@ otelcol.receiver.otlp "llm_reciever" {
   }
 
   output {
-    metrics = [otelcol.exporter.prometheus.experiments_2404_prom.input]
+    metrics = [otelcol.exporter.otlphttp.experiments_2404_prom.input]
     logs    = [otelcol.exporter.otlphttp.experiments_2404_loki.input]
     traces  = [otelcol.exporter.otlp.experiments_2404_tempo.input]
   }
 }
-
