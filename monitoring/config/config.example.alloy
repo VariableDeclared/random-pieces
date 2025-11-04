@@ -1,41 +1,42 @@
 otelcol.exporter.otlp "experiments_2404_tempo" {
   client {
-    endpoint = "ENDPOINT:4317"
+    endpoint = "192.168.2.231:4317"
     tls {
       insecure = true
     }
   }
 }
 
-otelcol.exporter.otlp "experiments_2404_loki" {
+otelcol.exporter.otlphttp "experiments_2404_loki" {
   client {
-    endpoint = "ENDPOINT:3100/otlp"
+    endpoint = "http://192.168.2.231:3100/otlp"
     tls {
       insecure = true
     }
   }
 }
-
-otelcol.exporter.otlp "experiments_2404_prom" {
-  client {
-    endpoint = "ENDPOINT:9090/api/v1/otlp/v1/metrics"
-    tls {
-      insecure = true
-    }
+prometheus.remote_write "prometheus" {
+  endpoint {
+    url = "http://mimir:9009/api/v1/push"
   }
+}
+
+otelcol.exporter.prometheus "experiments_2404_prom" {
+    forward_to = [prometheus.remote_write.prometheus.receiver]
 }
 otelcol.receiver.otlp "llm_reciever" {
   grpc {
-    endpoint = "127.0.0.1:4317"
+    endpoint = "0.0.0.0:4317"
   }
 
   http {
-    endpoint = "127.0.0.1:4318"
+    endpoint = "0.0.0.0:4318"
   }
 
   output {
-    metrics = [otelcol.exporter.otlp.experiments_2404_prom.input]
-    logs    = [otelcol.exporter.otlp.experiments_2404_loki.input]
+    metrics = [otelcol.exporter.prometheus.experiments_2404_prom.input]
+    logs    = [otelcol.exporter.otlphttp.experiments_2404_loki.input]
     traces  = [otelcol.exporter.otlp.experiments_2404_tempo.input]
   }
 }
+
