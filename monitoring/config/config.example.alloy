@@ -1,0 +1,41 @@
+otelcol.exporter.otlp "experiments_2404_tempo" {
+  client {
+    endpoint = "ENDPOINT:4317"
+    tls {
+      insecure = true
+    }
+  }
+}
+
+otelcol.exporter.otlp "experiments_2404_loki" {
+  client {
+    endpoint = "ENDPOINT:3100/otlp"
+    tls {
+      insecure = true
+    }
+  }
+}
+
+otelcol.exporter.otlp "experiments_2404_prom" {
+  client {
+    endpoint = "ENDPOINT:9090/api/v1/otlp/v1/metrics"
+    tls {
+      insecure = true
+    }
+  }
+}
+otelcol.receiver.otlp "llm_reciever" {
+  grpc {
+    endpoint = "127.0.0.1:4317"
+  }
+
+  http {
+    endpoint = "127.0.0.1:4318"
+  }
+
+  output {
+    metrics = [otelcol.exporter.otlp.experiments_2404_prom.input]
+    logs    = [otelcol.exporter.otlp.experiments_2404_loki.input]
+    traces  = [otelcol.exporter.otlp.experiments_2404_tempo.input]
+  }
+}
