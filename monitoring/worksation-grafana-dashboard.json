@@ -106,8 +106,8 @@
       "pluginVersion": "12.2.1",
       "targets": [
         {
-          "editorMode": "code",
-          "expr": "node_zfs_arc_size{instance=\"pjds-ubuntu\"}",
+          "editorMode": "builder",
+          "expr": "node_zfs_arc_size{instance=\"$System\"}",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -169,7 +169,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "node_cooling_device_cur_state{instance=\"pjds-ubuntu\"} ",
+          "expr": "node_cooling_device_cur_state{instance=\"$System\"} ",
           "legendFormat": "{{type}}",
           "range": true,
           "refId": "A"
@@ -232,7 +232,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "node_hwmon_temp_celsius",
+          "expr": "node_hwmon_temp_celsius{instance=\"$System\"}",
           "legendFormat": "{{chip}}",
           "range": true,
           "refId": "A"
@@ -277,7 +277,7 @@
           },
           "direction": "backward",
           "editorMode": "code",
-          "expr": "{instance=\"pjds-ubuntu\"}",
+          "expr": "{instance=\"$System\"}",
           "queryType": "range",
           "refId": "A"
         }
@@ -351,7 +351,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "node_processes_state{instance=\"pjds-ubuntu\"}",
+          "expr": "node_processes_state{instance=\"$System\"}",
           "legendFormat": "{{state}}",
           "range": true,
           "refId": "A"
@@ -414,7 +414,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "node_procs_running{instance=\"pjds-ubuntu\"}",
+          "expr": "node_procs_running{instance=\"$System\"}",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -498,7 +498,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "node_disk_io_now",
+          "expr": "node_disk_io_now{instance=\"$System\"}",
           "legendFormat": "{{device}}",
           "range": true,
           "refId": "A"
@@ -560,7 +560,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "node_filesystem_device_error{instance=\"pjds-ubuntu\"}",
+          "expr": "node_filesystem_device_error{instance=\"$System\"}",
           "legendFormat": "{{device}}",
           "range": true,
           "refId": "A"
@@ -636,7 +636,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "zfs_dataset_available_bytes{instance=\"192.168.2.109:9134\"}",
+          "expr": "zfs_dataset_available_bytes{instance=\"$System\"}",
           "legendFormat": "{{name}}",
           "range": true,
           "refId": "A"
@@ -698,7 +698,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "zfs_pool_health{instance=\"192.168.2.109:9134\"}",
+          "expr": "zfs_pool_health{instance=\"$System\"}",
           "legendFormat": "{{pool}}",
           "range": true,
           "refId": "A"
@@ -774,7 +774,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "node_netstat_Tcp_InErrs{instance=\"pjds-ubuntu\"}",
+          "expr": "node_netstat_Tcp_InErrs{instance=\"$System\"}",
           "interval": "1h",
           "legendFormat": "__auto",
           "range": true,
@@ -977,7 +977,7 @@
             "uid": "af2tla525wetca"
           },
           "editorMode": "code",
-          "expr": "node_load1{}",
+          "expr": "node_load1{instance=\"$System\"}",
           "interval": "",
           "legendFormat": "{{__name__}}",
           "range": true,
@@ -1072,8 +1072,8 @@
       "pluginVersion": "12.2.1",
       "targets": [
         {
-          "editorMode": "builder",
-          "expr": "node_memory_Active_bytes{instance=\"pjds-ubuntu\"}",
+          "editorMode": "code",
+          "expr": "node_memory_Active_bytes{instance=\"$System\"}",
           "format": "time_series",
           "interval": "",
           "legendFormat": "Memory Active Bytes",
@@ -1137,7 +1137,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "node_cpu_scaling_frequency_hertz",
+          "expr": "node_cpu_scaling_frequency_hertz{instance=\"$System\"}",
           "legendFormat": "{{cpu}}",
           "range": true,
           "refId": "A"
@@ -1232,7 +1232,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "node_memory_Mapped_bytes",
+          "expr": "node_memory_Mapped_bytes{instance=\"$System\"}",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -1296,7 +1296,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "node_memory_HugePages_Free",
+          "expr": "node_memory_HugePages_Free{instance=\"$System\"}",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -1311,7 +1311,25 @@
   "schemaVersion": 42,
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "text": "pjds-ubuntu",
+          "value": "pjds-ubuntu"
+        },
+        "definition": "label_values(instance)",
+        "name": "System",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(instance)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
   },
   "time": {
     "from": "now-6h",
@@ -1321,5 +1339,5 @@
   "timezone": "browser",
   "title": "Workstation Metrics",
   "uid": "ad8n8m8",
-  "version": 33
+  "version": 49
 }
